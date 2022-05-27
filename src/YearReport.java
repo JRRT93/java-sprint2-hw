@@ -1,35 +1,35 @@
 import java.util.ArrayList;
 
 public class YearReport {
-    ArrayList<Integer> amountExpense;
-    ArrayList<Integer> amountIncome;
+    ArrayList<YearInputLineByLine> amountExpense;
+    ArrayList<YearInputLineByLine> amountIncome;
+    int yearNumber = 2021;
 
-    YearReport(ArrayList<Integer> amountExpense, ArrayList<Integer> amountIncome) {
-        this.amountExpense = amountExpense;
-        this.amountIncome = amountIncome;
+    YearReport() {
+        amountExpense = new ArrayList<>();
+        amountIncome = new ArrayList<>();
     }
     void displayYearStat(){
-        System.out.println(2021);
-        for (int i = 0; i < amountIncome.size(); i++) {
-        String month = assignMonthName(i);
-        System.out.println("За " + month + " следующие показатели:");
-        System.out.println("Прибыль - " + (amountIncome.get(i) - amountExpense.get(i)));
+        System.out.println(yearNumber);
         System.out.println("Среднемесячные доходы - " + getAverageIncomeOrExpensePerMonth(false));
         System.out.println("Среднемесячные расходы - " + getAverageIncomeOrExpensePerMonth(true));
+        for (int i = 0; i < amountIncome.size(); i++) {
+        String month = assignMonthName(i);
+        System.out.println("Прибыль за " + month + " - " + (amountIncome.get(i).amount - amountExpense.get(i).amount));
         }
     }
 
     double getAverageIncomeOrExpensePerMonth(Boolean bool) {
-        if (bool == false) {
+        if (!bool) {
             double sum = 0;
-            for (Integer integer : amountIncome) {
-                sum += integer;
+            for (YearInputLineByLine yearInputLineByLine : amountIncome) {
+                sum += yearInputLineByLine.amount;
             }
             return sum / amountIncome.size();
         }
         double sum = 0;
-        for (Integer integer : amountIncome) {
-            sum += integer;
+        for (YearInputLineByLine yearInputLineByLine : amountExpense) {
+            sum += yearInputLineByLine.amount;
         }
         return sum / amountIncome.size();
     }

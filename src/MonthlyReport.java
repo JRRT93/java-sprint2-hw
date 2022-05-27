@@ -1,16 +1,11 @@
 import java.util.ArrayList;
 public class MonthlyReport {
-    ArrayList<String> itemName;
-    ArrayList<Boolean> isExpense;
-    ArrayList<Integer> amount;
     String monthName;
+    ArrayList<MonthInputLineByLine> monthDataLineByLine;
 
-    MonthlyReport(int numberMonth, ArrayList<String> itemName, ArrayList<Boolean> isExpense,
-                  ArrayList<Integer> amount) {
-        this.itemName = itemName;
-        this.isExpense = isExpense;
-        this.amount = amount;
+    MonthlyReport(int numberMonth) {
         this.monthName = assignMonthName(numberMonth);
+        monthDataLineByLine = new ArrayList<>();
     }
 
     String assignMonthName(int number) {
@@ -29,10 +24,10 @@ public class MonthlyReport {
     void getMonthMaxExpenseOrMaxIncome(Boolean bool) {
         int maxAmount = 0;
         String maxAmountItemName = " ";
-        for (int i = 0; i < isExpense.size(); i++) {
-            if(isExpense.get(i) == bool && maxAmount < amount.get(i)) {
-                maxAmount = amount.get(i);
-                maxAmountItemName = itemName.get(i);
+        for (int i = 0; i < monthDataLineByLine.size(); i++) {
+            if(monthDataLineByLine.get(i).isExpense == bool && maxAmount < monthDataLineByLine.get(i).amount) {
+                maxAmount = monthDataLineByLine.get(i).amount;
+                maxAmountItemName = monthDataLineByLine.get(i).itemName;
             }
         }
         System.out.println(maxAmountItemName + ", " + maxAmount);
@@ -40,9 +35,9 @@ public class MonthlyReport {
 
     int calculateMonthSummaryExpensesOrIncome(Boolean bool) {
         int sum = 0;
-        for (int i = 0; i < isExpense.size(); i++) {
-            if(isExpense.get(i) == bool) {
-                sum += amount.get(i);
+        for (int i = 0; i < monthDataLineByLine.size(); i++) {
+            if(monthDataLineByLine.get(i).isExpense == bool) {
+                sum += monthDataLineByLine.get(i).amount;
             }
         }
         return sum;
